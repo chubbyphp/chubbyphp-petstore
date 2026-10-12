@@ -21,7 +21,7 @@ RUN dnf install -y --nobest \
     php85-php-mbstring \
     php85-php-opcache \
     php85-php-pecl-apcu \
-    php85-php-pecl-mongodb \
+    php85-php-pecl-mongodb2 \
     php85-php-pecl-pcov \
     php85-php-pecl-xdebug3 \
     php85-php-pecl-zip \
