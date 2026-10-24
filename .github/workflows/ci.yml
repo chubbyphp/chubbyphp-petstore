@@ -8,12 +8,14 @@ on:
 jobs:
   docker-compose:
     name: docker-compose (production container)
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2604
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: blacksmith docker
-        uses: useblacksmith/setup-docker-builder@v1
+        uses: useblacksmith/setup-docker-builder@v2
+        with:
+          cache-key: docker/production/php/Dockerfile
       - name: docker build / start
         env:
           DOCKER_BUILDKIT: 1
@@ -31,7 +33,7 @@ jobs:
         run: docker compose -f docker-compose.ci.yml stop
   php83:
     name: PHP 8.3
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
         image: mongo:8
@@ -42,7 +44,7 @@ jobs:
           - 27017:27017
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # started as early as possible (and not as a job service, which cannot mount the checked out realm import nor
       # pass the "start-dev --import-realm" command), so it is up by the time the integration tests run; the issuer
       # claim is fixed via KC_HOSTNAME to the docker bridge gateway (172.17.0.1), which is reachable from within the
@@ -63,7 +65,7 @@ jobs:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
   php84:
     name: PHP 8.4
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
         image: mongo:8
@@ -74,7 +76,7 @@ jobs:
           - 27017:27017
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # started as early as possible (and not as a job service, which cannot mount the checked out realm import nor
       # pass the "start-dev --import-realm" command), so it is up by the time the integration tests run; the issuer
       # claim is fixed via KC_HOSTNAME to the docker bridge gateway (172.17.0.1), which is reachable from within the
@@ -95,7 +97,7 @@ jobs:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
   php85:
     name: PHP 8.5
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
         image: mongo:8
@@ -106,7 +108,7 @@ jobs:
           - 27017:27017
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # started as early as possible (and not as a job service, which cannot mount the checked out realm import nor
       # pass the "start-dev --import-realm" command), so it is up by the time the integration tests run; the issuer
       # claim is fixed via KC_HOSTNAME to the docker bridge gateway (172.17.0.1), which is reachable from within the
@@ -126,7 +128,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
       - name: sonarcloud.io
-        uses: SonarSource/sonarqube-scan-action@v7.1.0
+        uses: SonarSource/sonarqube-scan-action@v8.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
