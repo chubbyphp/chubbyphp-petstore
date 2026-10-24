@@ -36,7 +36,7 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
-        image: mongo:8
+        image: mongo:9
         env:
           MONGO_INITDB_ROOT_USERNAME: petstore
           MONGO_INITDB_ROOT_PASSWORD: KVKtkrTHhKuTJTor8pCP
@@ -68,7 +68,7 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
-        image: mongo:8
+        image: mongo:9
         env:
           MONGO_INITDB_ROOT_USERNAME: petstore
           MONGO_INITDB_ROOT_PASSWORD: KVKtkrTHhKuTJTor8pCP
@@ -100,7 +100,7 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2604
     services:
       mongo:
-        image: mongo:8
+        image: mongo:9
         env:
           MONGO_INITDB_ROOT_USERNAME: petstore
           MONGO_INITDB_ROOT_PASSWORD: KVKtkrTHhKuTJTor8pCP
