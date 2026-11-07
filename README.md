@@ -26,7 +26,7 @@ A simple skeleton to build api's based on the [mezzio][1] framework.
  * [chubbyphp/chubbyphp-api][2]: ^1.2.2
  * [chubbyphp/chubbyphp-clean-directories][3]: ^1.5.4
  * [chubbyphp/chubbyphp-cors][4]: ^1.7.4
- * [chubbyphp/chubbyphp-decode-encode][5]: ^1.4.3
+ * [chubbyphp/chubbyphp-decode-encode][5]: ^1.5
  * [chubbyphp/chubbyphp-http-exception][6]: ^1.3.5
  * [chubbyphp/chubbyphp-laminas-config][7]: ^1.5.4
  * [chubbyphp/chubbyphp-laminas-config-doctrine][8]: ^3.2.1
