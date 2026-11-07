@@ -26,7 +26,7 @@ A simple skeleton to build api's based on the [chubbyphp-framework][1].
  * [chubbyphp/chubbyphp-api][2]: ^1.2.2
  * [chubbyphp/chubbyphp-clean-directories][3]: ^1.5.4
  * [chubbyphp/chubbyphp-cors][4]: ^1.7.4
- * [chubbyphp/chubbyphp-decode-encode][5]: ^1.4.3
+ * [chubbyphp/chubbyphp-decode-encode][5]: ^1.5
  * [chubbyphp/chubbyphp-framework][6]: ^6.1.3
  * [chubbyphp/chubbyphp-framework-router-fastroute][7]: ^2.3.6
  * [chubbyphp/chubbyphp-http-exception][8]: ^1.3.5
