@@ -62,9 +62,9 @@ WORKDIR /home/php
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" --skip-shell \
     && source ~/.bashrc \
-    && fnm install 24 \
-    && fnm default 24 \
-    && fnm use 24 \
+    && fnm install 26 \
+    && fnm default 26 \
+    && fnm use 26 \
     && npm install -g corepack@latest
 
 RUN source ~/.bashrc \
