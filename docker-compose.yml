@@ -135,7 +135,7 @@ services:
   postgres:
     container_name: chubbyphp-petstore-postgres
     hostname: chubbyphp-petstore-postgres
-    image: postgres:17
+    image: postgres:18
     command: -c log_statement=all -c log_error_verbosity=VERBOSE
     environment:
       POSTGRES_DB: petstore
@@ -144,7 +144,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql
   swagger-ui:
     container_name: chubbyphp-petstore-swagger-ui
     hostname: chubbyphp-petstore-swagger-ui
