@@ -56,9 +56,12 @@ export GROUP_ID=$(id -g)
 
 ### Mount points
 
-Creates every file which gets mounted into the php container (shell rc/history, git, ssh, npm and the coding
-agent auth/settings files) without overwriting existing ones. Adjust the seeded settings files afterwards to your
-liking, they stay on the host and get mounted.
+Creates every file and directory which gets mounted into the php container without overwriting existing ones:
+
+ * shell rc/history, git, ssh and npm files within the host home (`~`)
+ * coding agent directories within `.home` (within this repository, git-ignored), seeded with default settings
+
+Adjust the seeded settings files afterwards to your liking, they stay on the host and get mounted.
 
 ```sh
 ./setup-mount-points.sh
@@ -66,14 +69,17 @@ liking, they stay on the host and get mounted.
 
 ### Coding agents
 
-The following coding agents (harnesses) are preinstalled within the php container, their auth and settings files
-get mounted from the host (see `docker-compose.yml`):
+The following coding agents (harnesses) are preinstalled within the php container, their directories get mounted
+from `.home` (see `docker-compose.yml`), so auth, settings, sessions and history survive container rebuilds:
 
- * [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code): `~/.claude.json`, `~/.claude/.credentials.json`, `~/.claude/settings.json`
- * [Codex](https://www.npmjs.com/package/@openai/codex): `~/.codex/auth.json`, `~/.codex/config.toml`
- * [Gemini CLI](https://www.npmjs.com/package/@google/gemini-cli): `~/.gemini/oauth_creds.json`, `~/.gemini/settings.json`
- * [Opencode](https://www.npmjs.com/package/opencode-ai): `~/.config/opencode/opencode.jsonc`, `~/.config/opencode/tui.json`, `~/.local/share/opencode/auth.json`
- * [PI](https://www.npmjs.com/package/@earendil-works/pi-coding-agent) incl. [pi-llama](https://github.com/huggingface/pi-llama): `~/.pi/agent/auth.json`
+ * [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code)
+ * [Codex](https://www.npmjs.com/package/@openai/codex)
+ * [Gemini CLI](https://www.npmjs.com/package/@google/gemini-cli)
+ * [Opencode](https://www.npmjs.com/package/opencode-ai)
+ * [PI](https://www.npmjs.com/package/@earendil-works/pi-coding-agent) incl. [pi-llama](https://github.com/huggingface/pi-llama) (installed on first start)
+
+Use `claude-reset`, `codex-reset`, `gemini-reset`, `opencode-reset`, `pi-reset` or `harness-reset` within the
+container to wipe the agent state while keeping auth and settings.
 
 #### llama.cpp
 

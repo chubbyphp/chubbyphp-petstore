@@ -1,7 +1,21 @@
 #!/bin/sh
 # Creates every file/dir that docker-compose.yml bind-mounts, so docker does not
 # turn missing files into directories. Existing files are never overwritten.
+#
+# Shell, git, ssh and npm files live in the host home (~), the coding agent
+# (LLM) dirs live in .home within this repository (git-ignored).
 set -eu
+
+LLM_HOME="$(cd "$(dirname "$0")" && pwd)/.home"
+
+# writes stdin into the given file, unless it already exists
+seed() {
+    if [ -f "$1" ]; then
+        cat > /dev/null
+    else
+        cat > "$1"
+    fi
+}
 
 # bash
 touch ~/.bash_docker
@@ -23,22 +37,9 @@ touch ~/.ssh/github.pub
 touch ~/.npmrc
 
 # claude
-if [ ! -f ~/.claude.json ]; then
-    cat > ~/.claude.json <<'EOF'
-{}
-EOF
-fi
+mkdir -p "$LLM_HOME/.claude"
 
-mkdir -p ~/.claude
-
-if [ ! -f ~/.claude/.credentials.json ]; then
-    cat > ~/.claude/.credentials.json <<'EOF'
-{}
-EOF
-fi
-
-if [ ! -f ~/.claude/settings.json ]; then
-    cat > ~/.claude/settings.json <<'EOF'
+seed "$LLM_HOME/.claude/settings.json" <<'EOF'
 {
     "fileCheckpointingEnabled": false,
     "permissions": {
@@ -50,46 +51,28 @@ if [ ! -f ~/.claude/settings.json ]; then
     "theme": "auto"
 }
 EOF
-fi
 
-chmod 600 \
-    ~/.claude/.credentials.json \
-    ~/.claude/settings.json
+chmod 700 "$LLM_HOME/.claude"
+chmod 600 "$LLM_HOME/.claude/settings.json"
 
 # codex
-mkdir -p ~/.codex
+mkdir -p "$LLM_HOME/.codex"
 
-if [ ! -f ~/.codex/auth.json ]; then
-    cat > ~/.codex/auth.json <<'EOF'
-{}
-EOF
-fi
-
-if [ ! -f ~/.codex/config.toml ]; then
-    cat > ~/.codex/config.toml <<'EOF'
+seed "$LLM_HOME/.codex/config.toml" <<'EOF'
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 
 [notice]
 hide_full_access_warning = true
 EOF
-fi
 
-chmod 600 \
-    ~/.codex/auth.json \
-    ~/.codex/config.toml
+chmod 700 "$LLM_HOME/.codex"
+chmod 600 "$LLM_HOME/.codex/config.toml"
 
 # gemini
-mkdir -p ~/.gemini
+mkdir -p "$LLM_HOME/.gemini"
 
-if [ ! -f ~/.gemini/oauth_creds.json ]; then
-    cat > ~/.gemini/oauth_creds.json <<'EOF'
-{}
-EOF
-fi
-
-if [ ! -f ~/.gemini/settings.json ]; then
-    cat > ~/.gemini/settings.json <<'EOF'
+seed "$LLM_HOME/.gemini/settings.json" <<'EOF'
 {
     "general": {
         "checkpointing": {
@@ -108,17 +91,14 @@ if [ ! -f ~/.gemini/settings.json ]; then
     }
 }
 EOF
-fi
 
-chmod 600 \
-    ~/.gemini/oauth_creds.json \
-    ~/.gemini/settings.json
+chmod 700 "$LLM_HOME/.gemini"
+chmod 600 "$LLM_HOME/.gemini/settings.json"
 
 # opencode
-mkdir -p ~/.config/opencode ~/.local/share/opencode
+mkdir -p "$LLM_HOME/.config/opencode" "$LLM_HOME/.local/share/opencode"
 
-if [ ! -f ~/.config/opencode/opencode.jsonc ]; then
-    cat > ~/.config/opencode/opencode.jsonc <<'EOF'
+seed "$LLM_HOME/.config/opencode/opencode.jsonc" <<'EOF'
 {
     "$schema": "https://opencode.ai/config.json",
     "permission": {
@@ -126,36 +106,32 @@ if [ ! -f ~/.config/opencode/opencode.jsonc ]; then
     }
 }
 EOF
-fi
 
-if [ ! -f ~/.config/opencode/tui.json ]; then
-    cat > ~/.config/opencode/tui.json <<'EOF'
+seed "$LLM_HOME/.config/opencode/tui.json" <<'EOF'
 {
     "$schema": "https://opencode.ai/tui.json",
     "theme": "system",
     "tips": false
 }
 EOF
-fi
 
-if [ ! -f ~/.local/share/opencode/auth.json ]; then
-    cat > ~/.local/share/opencode/auth.json <<'EOF'
-{}
-EOF
-fi
-
+chmod 700 \
+    "$LLM_HOME/.config/opencode" \
+    "$LLM_HOME/.local/share/opencode"
 chmod 600 \
-    ~/.config/opencode/opencode.jsonc \
-    ~/.config/opencode/tui.json \
-    ~/.local/share/opencode/auth.json
+    "$LLM_HOME/.config/opencode/opencode.jsonc" \
+    "$LLM_HOME/.config/opencode/tui.json"
 
-# pi
-mkdir -p ~/.pi/agent
+# pi (configured packages get installed on startup)
+mkdir -p "$LLM_HOME/.pi/agent"
 
-if [ ! -f ~/.pi/agent/auth.json ]; then
-    cat > ~/.pi/agent/auth.json <<'EOF'
-{}
+seed "$LLM_HOME/.pi/agent/settings.json" <<'EOF'
+{
+    "packages": [
+        "git:github.com/huggingface/pi-llama"
+    ]
+}
 EOF
-fi
 
-chmod 600 ~/.pi/agent/auth.json
+chmod 700 "$LLM_HOME/.pi/agent"
+chmod 600 "$LLM_HOME/.pi/agent/settings.json"
