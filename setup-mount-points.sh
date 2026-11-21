@@ -79,6 +79,41 @@ chmod 600 \
     ~/.codex/auth.json \
     ~/.codex/config.toml
 
+# gemini
+mkdir -p ~/.gemini
+
+if [ ! -f ~/.gemini/oauth_creds.json ]; then
+    cat > ~/.gemini/oauth_creds.json <<'EOF'
+{}
+EOF
+fi
+
+if [ ! -f ~/.gemini/settings.json ]; then
+    cat > ~/.gemini/settings.json <<'EOF'
+{
+    "general": {
+        "checkpointing": {
+            "enabled": false
+        }
+    },
+    "security": {
+        "disableYoloMode": false,
+        "folderTrust": {
+            "enabled": false
+        }
+    },
+    "ui": {
+        "autoThemeSwitching": true,
+        "hideTips": true
+    }
+}
+EOF
+fi
+
+chmod 600 \
+    ~/.gemini/oauth_creds.json \
+    ~/.gemini/settings.json
+
 # opencode
 mkdir -p ~/.config/opencode ~/.local/share/opencode
 

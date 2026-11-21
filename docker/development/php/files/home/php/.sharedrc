@@ -23,6 +23,9 @@ alias xdebug-off='sudo rm /etc/opt/remi/php85/php.d/15-xdebug.ini && php-fpm-res
 alias pcov-on='echo "extension=pcov.so" | sudo tee /etc/opt/remi/php85/php.d/40-pcov.ini && php-fpm-restart'
 alias pcov-off='sudo rm /etc/opt/remi/php85/php.d/40-pcov.ini && php-fpm-restart'
 
+# gemini: yolo (auto-approve all tools) can't be set via settings.json, only via flag
+alias gemini='gemini --yolo'
+
 # Reset per-harness state to the image baseline, keeping only what docker-compose.yml bind-mounts
 # (plus, for pi, the packages baked into the image by the Dockerfile).
 
@@ -37,6 +40,13 @@ codex-reset() {
     find ~/.codex -mindepth 1 -maxdepth 1 \
         ! -name 'auth.json' \
         ! -name 'config.toml' \
+        -exec rm -rf -- {} +
+}
+
+gemini-reset() {
+    find ~/.gemini -mindepth 1 -maxdepth 1 \
+        ! -name 'oauth_creds.json' \
+        ! -name 'settings.json' \
         -exec rm -rf -- {} +
 }
 
@@ -61,6 +71,7 @@ pi-reset() {
 harness-reset() {
     claude-reset
     codex-reset
+    gemini-reset
     opencode-reset
     pi-reset
 }
