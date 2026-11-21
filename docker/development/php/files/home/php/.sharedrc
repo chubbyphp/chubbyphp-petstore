@@ -1,6 +1,9 @@
 # fnm
 export PATH=$HOME/.fnm:$PATH
 
+# local bin
+export PATH=$HOME/.local/bin:$PATH
+
 export HISTSIZE=5000
 export SAVEHIST=100000
 
@@ -29,6 +32,14 @@ alias gemini='gemini --yolo'
 # Reset per-harness state (bind-mounted from .home within this repository, see docker-compose.yml),
 # keeping only auth and settings (plus, for pi, the installed packages).
 
+antigravity-reset() {
+    find ~/.gemini/antigravity-cli -mindepth 1 -maxdepth 1 \
+        ! -name 'settings.json' \
+        ! -name '*auth*' \
+        ! -name '*token*' \
+        -exec rm -rf -- {} +
+}
+
 claude-reset() {
     find ~/.claude -mindepth 1 -maxdepth 1 \
         ! -name '.claude.json' \
@@ -46,6 +57,8 @@ codex-reset() {
 
 gemini-reset() {
     find ~/.gemini -mindepth 1 -maxdepth 1 \
+        ! -name 'antigravity-cli' \
+        ! -name 'config' \
         ! -name 'oauth_creds.json' \
         ! -name 'settings.json' \
         -exec rm -rf -- {} +
@@ -70,6 +83,7 @@ pi-reset() {
 }
 
 harness-reset() {
+    antigravity-reset
     claude-reset
     codex-reset
     gemini-reset

@@ -72,14 +72,15 @@ Adjust the seeded settings files afterwards to your liking, they stay on the hos
 The following coding agents (harnesses) are preinstalled within the php container, their directories get mounted
 from `.home` (see `docker-compose.yml`), so auth, settings, sessions and history survive container rebuilds:
 
+ * [Antigravity CLI](https://antigravity.google/docs/cli/overview) (`agy`, shares `.gemini` with Gemini CLI)
  * [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code)
  * [Codex](https://www.npmjs.com/package/@openai/codex)
  * [Gemini CLI](https://www.npmjs.com/package/@google/gemini-cli)
  * [Opencode](https://www.npmjs.com/package/opencode-ai)
  * [PI](https://www.npmjs.com/package/@earendil-works/pi-coding-agent) incl. [pi-llama](https://github.com/huggingface/pi-llama) (installed on first start)
 
-Use `claude-reset`, `codex-reset`, `gemini-reset`, `opencode-reset`, `pi-reset` or `harness-reset` within the
-container to wipe the agent state while keeping auth and settings.
+Use `antigravity-reset`, `claude-reset`, `codex-reset`, `gemini-reset`, `opencode-reset`, `pi-reset` or
+`harness-reset` within the container to wipe the agent state while keeping auth and settings.
 
 #### llama.cpp
 
