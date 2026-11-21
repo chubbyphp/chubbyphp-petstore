@@ -1,4 +1,5 @@
 .git
+.home
 build
 database
 var
