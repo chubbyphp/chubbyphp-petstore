@@ -33,11 +33,13 @@ services:
       - ~/.gitignore:/home/php/.gitignore
       # ssh
       - ~/.ssh/github.pub:/home/node/.ssh/github.pub
+      # antigravity - coding agent (shares ~/.gemini with gemini, see below)
+      - ${PWD}/.home/.config/antigravity:/home/php/.config/antigravity
       # claude - coding agent
       - ${PWD}/.home/.claude:/home/php/.claude
       # codex - coding agent
       - ${PWD}/.home/.codex:/home/php/.codex
-      # gemini - coding agent
+      # gemini - coding agent (incl. antigravity: ~/.gemini/antigravity-cli, ~/.gemini/config)
       - ${PWD}/.home/.gemini:/home/php/.gemini
       # opencode - coding agent
       - ${PWD}/.home/.config/opencode:/home/php/.config/opencode

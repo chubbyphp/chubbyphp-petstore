@@ -36,6 +36,26 @@ touch ~/.ssh/github.pub
 # npm
 touch ~/.npmrc
 
+# antigravity (lives within ~/.gemini, next to gemini, plus ~/.config/antigravity)
+mkdir -p "$LLM_HOME/.gemini/antigravity-cli" "$LLM_HOME/.config/antigravity"
+
+seed "$LLM_HOME/.gemini/antigravity-cli/settings.json" <<'EOF'
+{
+    "allowNonWorkspaceAccess": true,
+    "colorScheme": "terminal",
+    "showTips": false,
+    "toolPermission": "always-proceed",
+    "trustedWorkspaces": [
+        "/app"
+    ]
+}
+EOF
+
+chmod 700 \
+    "$LLM_HOME/.gemini/antigravity-cli" \
+    "$LLM_HOME/.config/antigravity"
+chmod 600 "$LLM_HOME/.gemini/antigravity-cli/settings.json"
+
 # claude
 mkdir -p "$LLM_HOME/.claude"
 

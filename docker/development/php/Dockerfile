@@ -69,6 +69,12 @@ RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/
     && npm install -g corepack@latest
 
 RUN source ~/.bashrc \
+    && set -o pipefail \
+    && curl -fsSL https://antigravity.google/cli/install.sh | bash \
+    && mkdir -p "$HOME/.gemini" \
+    && mkdir -p "$HOME/.config/antigravity"
+
+RUN source ~/.bashrc \
     && npm install -g @anthropic-ai/claude-code --allow-scripts=@anthropic-ai/claude-code \
     && mkdir -p "$HOME/.claude"
 
