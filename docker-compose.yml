@@ -17,6 +17,8 @@ services:
       OIDC_AUDIENCE: 'petstore'
       SSH_AUTH_SOCK: /ssh-agent
       LLAMA_BASE_URL: http://host.docker.internal:9931/v1
+      # claude: keep .claude.json within the mounted ~/.claude instead of ~/.claude.json
+      CLAUDE_CONFIG_DIR: /home/php/.claude
     volumes:
       - ${PWD}:/app
       - $SSH_AUTH_SOCK:/ssh-agent
@@ -32,21 +34,16 @@ services:
       # ssh
       - ~/.ssh/github.pub:/home/node/.ssh/github.pub
       # claude - coding agent
-      - ~/.claude.json:/home/php/.claude.json
-      - ~/.claude/.credentials.json:/home/php/.claude/.credentials.json
-      - ~/.claude/settings.json:/home/php/.claude/settings.json
+      - ${PWD}/.home/.claude:/home/php/.claude
       # codex - coding agent
-      - ~/.codex/auth.json:/home/php/.codex/auth.json
-      - ~/.codex/config.toml:/home/php/.codex/config.toml
+      - ${PWD}/.home/.codex:/home/php/.codex
       # gemini - coding agent
-      - ~/.gemini/oauth_creds.json:/home/php/.gemini/oauth_creds.json
-      - ~/.gemini/settings.json:/home/php/.gemini/settings.json
+      - ${PWD}/.home/.gemini:/home/php/.gemini
       # opencode - coding agent
-      - ~/.config/opencode/opencode.jsonc:/home/php/.config/opencode/opencode.jsonc
-      - ~/.config/opencode/tui.json:/home/php/.config/opencode/tui.json
-      - ~/.local/share/opencode/auth.json:/home/php/.local/share/opencode/auth.json
+      - ${PWD}/.home/.config/opencode:/home/php/.config/opencode
+      - ${PWD}/.home/.local/share/opencode:/home/php/.local/share/opencode
       # pi - coding agent
-      - ~/.pi/agent/auth.json:/home/php/.pi/agent/auth.json
+      - ${PWD}/.home/.pi/agent:/home/php/.pi/agent
     depends_on:
       - keycloak
       - mongo
