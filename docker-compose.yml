@@ -38,6 +38,9 @@ services:
       # codex - coding agent
       - ~/.codex/auth.json:/home/php/.codex/auth.json
       - ~/.codex/config.toml:/home/php/.codex/config.toml
+      # gemini - coding agent
+      - ~/.gemini/oauth_creds.json:/home/php/.gemini/oauth_creds.json
+      - ~/.gemini/settings.json:/home/php/.gemini/settings.json
       # opencode - coding agent
       - ~/.config/opencode/opencode.jsonc:/home/php/.config/opencode/opencode.jsonc
       - ~/.config/opencode/tui.json:/home/php/.config/opencode/tui.json

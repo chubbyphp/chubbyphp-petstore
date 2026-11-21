@@ -76,6 +76,10 @@ RUN source ~/.bashrc \
     && mkdir -p "$HOME/.codex"
 
 RUN source ~/.bashrc \
+    && npm install -g @google/gemini-cli --allow-scripts=@github/keytar,node-pty \
+    && mkdir -p "$HOME/.gemini"
+
+RUN source ~/.bashrc \
     && npm install -g opencode-ai@latest --allow-scripts=opencode-ai \
     && mkdir -p "$HOME/.config/opencode" \
     && mkdir -p "$HOME/.local/share/opencode"
