@@ -65,6 +65,7 @@ RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/
     && fnm install 26 \
     && fnm default 26 \
     && fnm use 26 \
+    && npm install -g npm@latest \
     && npm install -g corepack@latest
 
 RUN source ~/.bashrc \
