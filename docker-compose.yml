@@ -137,7 +137,7 @@ services:
   postgres:
     container_name: chubbyphp-petstore-postgres
     hostname: chubbyphp-petstore-postgres
-    image: postgres:18
+    image: postgres:19
     command: -c log_statement=all -c log_error_verbosity=VERBOSE
     environment:
       POSTGRES_DB: petstore
